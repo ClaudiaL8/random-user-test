@@ -1,10 +1,12 @@
 import axios from "axios";
 
-const getRandomUsers = async () => {
+export const getUsersData = async () => {
+  const count = "50";
+  const url = `https://randomuser.me/api/?results=${count}`;
   try {
-    const { data } = await axios.get("https://randomuser.me/api/?results=5000");
-    console.log({ data });
-  } catch (err) {
-    console.log("error getring number of pokemons");
+    const { data } = await axios.get(url);
+    return data.results;
+  } catch {
+    console.log("error getting pokemons");
   }
 };

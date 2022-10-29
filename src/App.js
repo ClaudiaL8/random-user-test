@@ -1,17 +1,22 @@
-import logo from "./logo.svg";
-import "./App.css";
-import RandomUsersPage from "./pages/RandomUsersPage";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Container } from "@mui/material";
+import { RandomUsersContextProvider } from "./contexts/randomUsersContexts";
+import RandomUsersPage from "./pages/RandomUsersPage.js";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      </header>
-      <body>
-        <RandomUsersPage />
-      </body>
-    </div>
+    <Container>
+      <RandomUsersContextProvider>
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<RandomUsersPage />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Router>
+      </RandomUsersContextProvider>
+    </Container>
   );
 }
 

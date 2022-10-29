@@ -13,10 +13,10 @@ export const RandomUsersContextProvider = ({ children }) => {
     initialState.randomUsersList
   );
 
-  const fetchPokemonList = async () => {
+  const fetchRandomUsersList = async (count) => {
     setRandomUsersList({ ...initialState.randomUsersList, isLoading: true });
     try {
-      const data = await getUsersData();
+      const data = await getUsersData(count);
       setRandomUsersList({ isLoading: false, data: data });
     } catch (err) {
       setRandomUsersList({ isLoading: false, error: err });
@@ -24,8 +24,30 @@ export const RandomUsersContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchPokemonList();
+    const randomUsersDataInLocalStorage =
+      localStorage.getItem("randomUsersData");
+    if (randomUsersDataInLocalStorage) {
+      console.log("no es la primera vez");
+      const getRandomUserListLocalStorage = JSON.parse(
+        localStorage.getItem("randomUsersData")
+      );
+      setRandomUsersList({
+        isLoading: false,
+        data: getRandomUserListLocalStorage,
+      });
+    } else {
+      console.log("es la primera vez, haz el fetch");
+      fetchRandomUsersList(50);
+    }
   }, []);
+
+  const updateRandomUsersDataLocalStorage = () => {
+    // console.log(randomUsersList);
+    // localStorage.setItem(
+    //   "randomUsersData",
+    //   JSON.stringify(randomUsersList.data)
+    // );
+  };
 
   const state = useMemo(
     () => ({

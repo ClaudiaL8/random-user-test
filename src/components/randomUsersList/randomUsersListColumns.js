@@ -1,13 +1,22 @@
 export const columns = [
   {
     field: "name",
-    headerName: "Pokemon Name",
-    width: 250,
+    headerName: "Name",
+    width: 200,
   },
   {
-    field: "url",
-    headerName: "URL",
-    width: 500,
-    getApplyQuickFilterFn: undefined,
+    field: "city",
+    headerName: "City",
+    width: 200,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 400,
+  },
+  {
+    field: "cell",
+    headerName: "Cell",
+    width: 200,
   },
 ];

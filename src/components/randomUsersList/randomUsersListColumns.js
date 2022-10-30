@@ -19,4 +19,9 @@ export const columns = [
     headerName: "Cell",
     width: 200,
   },
+  {
+    field: "actions",
+    type: "actions",
+    width: 80,
+  },
 ];

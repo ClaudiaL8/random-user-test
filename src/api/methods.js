@@ -11,7 +11,6 @@ export const getUsersData = async (count) => {
       cell: user.cell,
       id: i,
     }));
-    localStorage.setItem("randomUsersData", JSON.stringify(mappedUsers));
     return mappedUsers;
   } catch {
     console.log("error getting random users");

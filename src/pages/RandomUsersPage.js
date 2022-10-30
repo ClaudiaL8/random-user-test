@@ -8,7 +8,13 @@ const PokedexPage = () => {
   const { isLoading, data, error } = randomUsersList;
 
   return (
-    <Container>
+    <Container
+      sx={{
+        height: "100%",
+        width: "100%",
+        border: "1px solid red",
+      }}
+    >
       {isLoading && <CircularProgress />}
       {!!data?.length && <RandomUsersList />}
       {error && <Typography>Upss algo fue mal</Typography>}

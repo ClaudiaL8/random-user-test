@@ -10,7 +10,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import { useRandomUsersContext } from "../../contexts/randomUsersContexts";
 import { columns } from "./randomUsersListColumns";
-// import SaveIcon from "@mui/icons-material/SaveIcon";
 
 const Pokedex = () => {
   const {
@@ -35,9 +34,10 @@ const Pokedex = () => {
         alignItems="center"
       >
         <Button
-          variant="outlined"
+          variant="contained"
           startIcon={<AddIcon />}
           onClick={addNewRandomUser}
+          color="primary"
         >
           {isLoadingButtonAdd && <CircularProgress size={20} />}
           {!isLoadingButtonAdd && "Add"}
@@ -99,7 +99,7 @@ const Pokedex = () => {
   return (
     <Box sx={{ height: 500, width: "100%" }}>
       <Box sx={{ display: "flex", height: "100%" }}>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, minHeight: 50 }}>
           <DataGrid
             rows={data}
             columns={newColumns}
@@ -108,6 +108,8 @@ const Pokedex = () => {
             disableColumnMenu
             components={{ Toolbar: Toolbar }}
             onRowDoubleClick={handleOnCellClick}
+            noRowsLabel="No users"
+            sx={{ border: 0 }}
           />
         </Box>
       </Box>

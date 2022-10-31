@@ -17,9 +17,7 @@ const initialState = {
   isLoadingButtonAdd: false,
   editUserModal: {
     isOpen: false,
-    isLoading: false,
     form: {},
-    error: "",
   },
 };
 const RandomUsersContext = createContext(initialState);
@@ -71,10 +69,11 @@ export const RandomUsersContextProvider = ({ children }) => {
   const addNewRandomUser = useCallback(async () => {
     setIsLoadingButtonAdd(true);
     const count = 1;
+    let arrayOfIds = randomUsersList.data.map((user) => user.id);
+    arrayOfIds = arrayOfIds.length ? arrayOfIds : [-1];
+
     try {
-      const getHighestId = Math.max(
-        ...randomUsersList.data.map((user) => user.id)
-      );
+      const getHighestId = Math.max(...arrayOfIds);
       const user = await getUsersData(count);
       const userWithId = { ...user[0], id: getHighestId + 1 };
       const newData = [userWithId].concat(randomUsersList.data);

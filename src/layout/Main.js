@@ -6,7 +6,7 @@ import EditUserModal from "../components/EditUserModal";
 
 const PokedexPage = () => {
   const { randomUsersList, editUserModal } = useRandomUsersContext();
-  const { isLoading, data, error } = randomUsersList;
+  const { isLoading, error } = randomUsersList;
   const { isOpen } = editUserModal;
 
   return (
@@ -14,11 +14,13 @@ const PokedexPage = () => {
       sx={{
         height: "100%",
         width: "100%",
-        border: "1px solid red",
+        backgroundColor: "#EEEEEE",
+        display: "flex",
+        justifyContent: "center",
       }}
     >
       {isLoading && <CircularProgress />}
-      {!!data?.length && <RandomUsersList />}
+      {!isLoading && <RandomUsersList />}
       {error && <Typography>Upss algo fue mal</Typography>}
       {isOpen && <EditUserModal />}
     </Container>

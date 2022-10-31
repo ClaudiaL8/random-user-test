@@ -5,7 +5,6 @@ import {
   TextField,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   MenuItem,
   Checkbox,
@@ -22,7 +21,7 @@ const EditUserModal = () => {
     handleChangeInputValue,
     handleSubmitForm,
   } = useRandomUsersContext();
-  const { isOpen, isLoading, form, error } = editUserModal;
+  const { isOpen, form } = editUserModal;
   const { name, city, email, cell, bundle, active, category } = form;
 
   const handleClose = () => {
@@ -156,10 +155,17 @@ const EditUserModal = () => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleClose}>
+        <Button
+          variant="contained"
+          autoFocus
+          onClick={handleClose}
+          color="secondary"
+        >
           Cancel
         </Button>
-        <Button onClick={handleSubmitForm}>Submit</Button>
+        <Button variant="contained" onClick={handleSubmitForm} color="primary">
+          Submit{" "}
+        </Button>
       </DialogActions>
     </Dialog>
   );

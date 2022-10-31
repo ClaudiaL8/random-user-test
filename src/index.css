@@ -3,4 +3,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ef0c3d;
+  height: 100vh;
+  color: #666666;
+}
+
+#root {
+  height: 100%;
 }

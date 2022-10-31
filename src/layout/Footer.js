@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, CardMedia, Container } from "@mui/material";
-import logo from "../images/logo-web.png";
+import logo from "../images/logo1.png";
 
 const Header = () => {
   const image = {
@@ -14,7 +14,7 @@ const Header = () => {
   const imageWrapper = {
     overflow: "hidden",
     paddingBottom: "90%",
-    width: "100%",
+    width: "82,55px",
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -24,16 +24,14 @@ const Header = () => {
   return (
     <Box
       sx={{
-        width: "100%",
-        backgroundColor: "#ffffff",
+        height: "fit-inherit",
+        backgroundColor: "#1f383f",
       }}
     >
       <Container
         sx={{
-          display: "flex",
-          alignItems: "center",
-          paddingTop: "13px",
-          paddingBottom: "13px",
+          paddingTop: "26px",
+          paddingBottom: "26px",
         }}
       >
         <Box style={{ imageWrapper }}>
@@ -41,18 +39,13 @@ const Header = () => {
             component="img"
             image={logo}
             alt={"Tappx logo"}
-            sx={{ maxHeight: "43px", maxWidth: "none" }}
+            sx={{ maxHeight: "23.39px", width: "auto" }}
             style={{ image }}
           />
         </Box>
-        <Typography
-          variant="h5"
-          sx={{
-            paddingTop: "5px",
-            marginLeft: 10,
-          }}
-        >
-          Random Users List
+        <Typography variant="body2" color="#666666">
+          © 2020 Todos los derechos reservados | Política de Privacidad y
+          Cookies | Aviso Legal | Acerca de Tappx
         </Typography>
       </Container>
     </Box>

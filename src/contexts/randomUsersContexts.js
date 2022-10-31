@@ -15,6 +15,12 @@ const initialState = {
     error: "",
   },
   isLoadingButtonAdd: false,
+  editUserModal: {
+    isOpen: false,
+    isLoading: false,
+    form: {},
+    error: "",
+  },
 };
 const RandomUsersContext = createContext(initialState);
 
@@ -26,6 +32,9 @@ export const RandomUsersContextProvider = ({ children }) => {
   );
   const [isLoadingButtonAdd, setIsLoadingButtonAdd] = useState(
     initialState.isLoadingButtonAdd
+  );
+  const [editUserModal, setEditUserModal] = useState(
+    initialState.editUserModal
   );
 
   const fetchRandomUsersList = async (count) => {
@@ -48,15 +57,17 @@ export const RandomUsersContextProvider = ({ children }) => {
 
   useEffect(() => {
     updateRandomUsersDataLocalStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [randomUsersList.data]);
 
   const updateRandomUsersDataLocalStorage = () => {
-    // localStorage.setItem(
-    //   "randomUsersData",
-    //   JSON.stringify(randomUsersList.data)
-    // );
+    localStorage.setItem(
+      "randomUsersData",
+      JSON.stringify(randomUsersList.data)
+    );
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const addNewRandomUser = useCallback(async () => {
     setIsLoadingButtonAdd(true);
     const count = 1;
@@ -77,14 +88,51 @@ export const RandomUsersContextProvider = ({ children }) => {
     }
   });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleChangeInputValue = useCallback((name, value) => {
+    setEditUserModal({
+      ...editUserModal,
+      form: {
+        ...editUserModal.form,
+        [name]: value,
+      },
+    });
+  });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleSubmitForm = useCallback(() => {
+    const copyRandomUsersArray = [...randomUsersList.data];
+    const indexOfUser = copyRandomUsersArray.findIndex(
+      (user) => user.id === editUserModal.form.id
+    );
+    copyRandomUsersArray[indexOfUser] = editUserModal.form;
+    setRandomUsersList({ data: copyRandomUsersArray });
+    setEditUserModal({
+      isOpen: false,
+    });
+  });
+
   const state = useMemo(
     () => ({
       randomUsersList,
       setRandomUsersList,
       addNewRandomUser,
       isLoadingButtonAdd,
+      editUserModal,
+      setEditUserModal,
+      handleChangeInputValue,
+      handleSubmitForm,
     }),
-    [randomUsersList, setRandomUsersList, addNewRandomUser, isLoadingButtonAdd]
+    [
+      randomUsersList,
+      setRandomUsersList,
+      addNewRandomUser,
+      isLoadingButtonAdd,
+      editUserModal,
+      setEditUserModal,
+      handleChangeInputValue,
+      handleSubmitForm,
+    ]
   );
 
   return (

@@ -18,6 +18,7 @@ const Pokedex = () => {
     setRandomUsersList,
     addNewRandomUser,
     isLoadingButtonAdd,
+    setEditUserModal,
   } = useRandomUsersContext();
   const { data } = randomUsersList;
 
@@ -36,9 +37,7 @@ const Pokedex = () => {
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
-          onClick={() => {
-            addNewRandomUser();
-          }}
+          onClick={addNewRandomUser}
         >
           {isLoadingButtonAdd && <CircularProgress size={20} />}
           {!isLoadingButtonAdd && "Add"}
@@ -58,16 +57,16 @@ const Pokedex = () => {
   const newColumns = columns.map((column) => {
     const newColumn = { ...column };
     if (column.type === "actions") {
-      newColumn.getActions = (params) => [
+      newColumn.getActions = (user) => [
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Delete"
-          onClick={() => deleteUser(params.id)}
+          onClick={() => deleteUser(user.id)}
         />,
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Edit"
-          onClick={() => editUser(params.id)}
+          onClick={() => editUser(user.row)}
         />,
       ];
     }
@@ -81,12 +80,20 @@ const Pokedex = () => {
     });
   };
 
-  const editUser = (id) => {
-    console.log({ id });
+  const editUser = (user) => {
+    setEditUserModal({
+      isOpen: true,
+      form: {
+        ...user,
+        bundle: user.bundle ? user.bundle : "",
+        active: user.active ? user.active : false,
+        category: user.category ? user.category : "",
+      },
+    });
   };
 
   const handleOnCellClick = ({ row }) => {
-    console.log({ row });
+    editUser(row);
   };
 
   return (
@@ -100,7 +107,7 @@ const Pokedex = () => {
             rowsPerPageOptions={[15]}
             disableColumnMenu
             components={{ Toolbar: Toolbar }}
-            onRowClick={handleOnCellClick}
+            onRowDoubleClick={handleOnCellClick}
           />
         </Box>
       </Box>

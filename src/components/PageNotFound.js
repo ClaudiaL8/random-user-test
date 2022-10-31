@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Typography, CardMedia, Container } from "@mui/material";
+import { Box, Typography, CardMedia, Container, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import image404 from "../images/404-img.png";
 
 const PageNotFound = () => {
@@ -20,6 +21,8 @@ const PageNotFound = () => {
     left: "50%",
     transform: "translate(-50%, -50%)",
   };
+
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -49,9 +52,24 @@ const PageNotFound = () => {
             style={{ image }}
           />
         </Box>
-        <Typography variant="body2" sx={{ color: "#ffffff", marginTop: 5 }}>
+        <Typography
+          sx={{
+            color: "#ffffff",
+            marginTop: 5,
+            fontSize: "19px",
+            fontWeight: 400,
+          }}
+        >
           The page you were looking for doesn't appear to exist.
         </Typography>
+        <Button
+          variant="contained"
+          onClick={() => navigate("/")}
+          color="primary"
+          sx={{ marginTop: 5, fontSize: "12px", fontWeight: 700 }}
+        >
+          GO BACK TO HOME PAGE
+        </Button>
       </Container>
     </Box>
   );
